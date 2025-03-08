@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,43 +8,256 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BTL_NhapMonCNPM.styles.css" asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BTL_NhapMonCNPM</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3 style="color: #fff;">NMCNPM_G14</h3>
+            <div class="sidebar-toggle d-md-none">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-home me-2"></i> <span>Trang chủ</span>
+                </a>
+            </li>
+            @{
+                var userName = Context.Session.GetString("UserName");
+                if (String.IsNullOrEmpty(userName))
+                {
+                    <li>
+                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#modalSignin">
+                            <i class="fas fa-sign-in-alt me-2"></i> <span>Đăng nhập</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#modalSignup">
+                            <i class="fa-solid fa-user-plus"></i> <span>Đăng ký</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="text-decoration-none" href="#" class="user-info">
+                            <i class="fas fa-user me-2"></i> <span>@userName</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-decoration-none" href="logout">
+                            <i class="fas fa-sign-out-alt me-2"></i> <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                }
+            }
+            <!-- Thêm các menu khác tùy theo nhu cầu của ứng dụng -->
+            <li>
+                <a href="#helpSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+                    class="dropdown-toggle text-decoration-none">
+                    <i class="fas fa-question-circle me-2"></i> <span>Trợ giúp</span>
+                </a>
+                <ul class="collapse list-unstyled ps-3" id="helpSubmenu">
+                    <li>
+                        <a class="text-decoration-none" href="#"><i class="fas fa-info-circle me-2"></i> <span>Giới
+                                thiệu</span></a>
+                    </li>
+                    <li>
+                        <a class="text-decoration-none" href="#"><i class="fas fa-book me-2"></i> <span>Hướng
+                                dẫn</span></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="sidebar-bottom">
+            <a href="#"><i class="fas fa-cog me-2"></i> <span>Cài đặt</span></a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="content-wrapper">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    @{
+        if (String.IsNullOrEmpty(userName))
+        {
+            <!-- Modal đăng nhập -->
+            <div class="modal fade" id="modalSignin" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Đăng Nhập</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="auth" class="my-5" method="post" id="loginForm">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        placeholder="Nhập tên Tài khoản">
+                                    <label for="username">Tài khoản</label>
+                                </div>
+                                <div class="form-floating mt-4">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Nhập mật khẩu">
+                                    <label for="password">Mật khẩu</label>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-success mt-4">Đăng nhập</button>
+                                    <button type="reset" class="btn btn-secondary mt-4">Hủy</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - BTL_NhapMonCNPM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+            <!-- Modal đăng ký -->
+            <div class="modal fade" id="modalSignup" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Đăng Ký</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="register" class="my-5" method="post" id="registerForm">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        placeholder="Nhập tên Tài khoản">
+                                    <label for="username">Tài khoản</label>
+                                </div>
+                                <div class="form-floating mt-4">
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="form-floating mt-4">
+                                    <input type="password" class="form-control" id="password_regis" name="password_regis"
+                                        placeholder="Nhập mật khẩu">
+                                    <label for="password_regis">Mật khẩu</label>
+                                </div>
+                                <div class="form-floating mt-4">
+                                    <input type="password" class="form-control" id="r_password" name="r_password"
+                                        placeholder="Nhập lại mật khẩu">
+                                    <label for="r_password">Nhập lại mật khẩu</label>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-success mt-4">Đăng Ký</button>
+                                    <button type="reset" class="btn btn-secondary mt-4">Hủy</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- Modal tải nhạc lên -->
+            <div class="modal fade" id="modalUploadMusic" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tải nhạc lên</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="upFile" class="my-5" method="post" id="modalUploadFile" enctype="multipart/form-data">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="ms_name" name="ms_name"
+                                        placeholder="Nhập tên bài hát">
+                                    <label for="ms_name">Tên bài hát</label>
+                                </div>
+                                <div class=" mt-4">
+                                    <label for="ms_file" class="form-label">File nhạc</label>
+                                    <input type="file" class="form-control" id="ms_file" name="ms_file"
+                                        placeholder="Chọn file nhạc" accept=".mp4">
+                                </div>
+                                <div class="form-floating mt-4">
+                                    <select class="form-select" name="ms_theloai" id="ms_theloai">
+                                        <option value="0" selected hidden>Chọn thể loại</option>
+                                        <option value="1">Thể loại 1</option>
+                                        <option value="2">Thể loại 2</option>
+                                        <option value="3">Thể loại 3</option>
+                                        <option value="4">Thể loại 4</option>
+                                        <option value="5">Thể loại 5</option>
+                                        <option value="6">Thể loại 6</option>
+                                    </select>
+                                    <label for="ms_theloai">Thể loại nhạc</label>
+                                </div>
+                                <div class="form-floating mt-4">
+                                    <textarea name="ms_mota" id="ms_mota" class="w-100 form-control" placeholder="Mô tả" style="height: 100%;"></textarea>
+                                    <label for="ms_mota">Mô tả</label>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-success mt-4">Tải lên</button>
+                                    <button type="reset" class="btn btn-secondary mt-4">Hủy</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- JavaScript cho sidebar -->
+    <script>
+        $(document).ready(function () {
+            // Đánh dấu menu active dựa vào URL hiện tại
+            const path = window.location.pathname;
+            $(`#sidebar ul li a[href='${path}']`).addClass('active');
+
+            // Xử lý toggle sidebar
+            $('.sidebar-toggle').on('click', function () {
+                $('body').toggleClass('sidebar-collapsed');
+            });
+
+            // Xử lý submenu
+            $('.dropdown-toggle').click(function () {
+                $(this).next('.collapse').collapse('toggle');
+            });
+        });
+    </script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
+
+@if (TempData["Message"] != null)
+{
+                    <script>
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                toast.addEventListener('click', Swal.close)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: '@TempData["icon"]',
+                            title: '@TempData["Message"]'
+                        })
+                    </script>
+}

@@ -1,0 +1,20 @@
+body{
+    background-color: black;
+}
+
+.gradient-banner {
+    height: 300px; /* Chiều cao của div */
+    background: linear-gradient(to bottom, #09586e, #08cec4); 
+    color: white;
+}
+.card_music{
+    background-color: #1c1c1c;
+    color: white;
+}
+
+#userDropdown::after {
+    display: none;
+}
+.dropdown-menu {
+    z-index: 1051;
+}

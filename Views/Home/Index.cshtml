@@ -1,8 +1,115 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
 }
+@{
+    var user = Context.Session.GetString("UserName");
+    var userQuyen = Context.Session.GetString("UserQuyen");
+}
+<link rel="stylesheet" href="~/css/trangchu.css">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="banner">
+    <div class="gradient-banner rounded">
+        <div class="container pt-3">
+            <div class="button_gr d-flex align-items-center justify-content-between">
+                <div class="arrow_btn_gr">
+                    <button class="btn rounded-circle bg-dark text-center">
+                        <i class="fa-solid fa-arrow-left text-light"></i>
+                    </button>
+                    <button class="btn rounded-circle bg-dark text-center">
+                        <i class="fa-solid fa-arrow-right text-light"></i>
+                    </button>
+                </div>
+                @{
+                    if (!String.IsNullOrEmpty(user))
+                    {
+                        <div class="btn_user dropdown">
+                            <button class="btn rounded-circle fw-bold bg-light dropdown-toggle" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                @{
+                                    if (userQuyen == "casi")
+                                    {
+                                        <li><a class="dropdown-item" href="" data-bs-toggle="modal"
+                                                data-bs-target="#modalUploadMusic">Tải nhạc lên</a></li>
+                                    }
+                                }
+                                <li><a class="dropdown-item" href="login">Thông tin cá nhân</a></li>
+                                <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="banner_content mt-5">
+                <h1 class="text-light fw-bold">Chào mừng bạn</h1>
+                <h5 class="text-light">Chúng tôi cung cấp các dịch vụ tốt nhất cho bạn</h5>
+                <button class="btn rounded-pill bg-light fw-bold">Tìm hiểu thêm</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="music_list mt-5">
+    <div class="">
+        <div class="music_list_title">
+            <h2 class="fw-bold text-light">Danh sách nhạc</h2>
+        </div>
+        <div class="music_list_content ">
+            <div class="row d-flex">
+                <div class="col-3">
+                    <div class="card card_music">
+                        <img class="img-fluid px-1 py-1"
+                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Nhạc số 1</h5>
+                            <p class="card-text">Mô tả</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card card_music">
+                        <img class="img-fluid px-1 py-1"
+                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Nhạc số 2</h5>
+                            <p class="card-text">Mô tả</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card card_music">
+                        <img class="img-fluid px-1 py-1"
+                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Nhạc số 3</h5>
+                            <p class="card-text">Mô tả</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card card_music">
+                        <img class="img-fluid px-1 py-1"
+                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Nhạc số 4</h5>
+                            <p class="card-text">Mô tả</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    if (!String.IsNullOrEmpty(user))
+    {
+        
+    }
+}

@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//JS đăng ký
 
-// Write your JavaScript code.
+$(document).ready(function () {
+    $('#registerForm').submit(function (e) {
+        if($('#password_regis').val() != $('#r_password').val()){
+            Toast.fire({
+                icon: 'error',
+                title: 'Mật khẩu không khớp'
+            })
+            e.preventDefault();
+        }
+
+        const email = $('#email').val();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            Toast.fire({
+                icon: 'error',
+                title: 'Email không hợp lệ'
+            })
+            e.preventDefault();
+        }
+    });
+});

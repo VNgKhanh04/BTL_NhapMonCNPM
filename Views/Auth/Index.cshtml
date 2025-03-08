@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="formLogin rounded w-50">
+        <div class="formHeader text-center mt-2">
+            <h5>Đăng Nhập</h5>
+        </div>
+        <div class="container">
+            <form action="auth" class="my-5" method="post">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Nhập tên Tài khoản">
+                    <label for="username">Tài khoản</label>
+                </div>
+                <div class="form-floating mt-4">
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Nhập tên Tài khoản">
+                    <label for="password">Mật khẩu</label>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success mt-4">Đăng nhập</button>
+                    <button type="reset" class="btn btn-secondary mt-4">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
