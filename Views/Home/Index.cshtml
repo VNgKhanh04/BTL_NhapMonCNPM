@@ -1,10 +1,12 @@
-﻿@{
+﻿@model List<Baihat>
+@{
     ViewData["Title"] = "Trang chủ";
 }
 @{
     var user = Context.Session.GetString("UserName");
     var userQuyen = Context.Session.GetString("UserQuyen");
 }
+<script src="~/js/trangchu.js"></script>
 <link rel="stylesheet" href="~/css/trangchu.css">
 
 <div class="banner">
@@ -62,54 +64,76 @@
         </div>
         <div class="music_list_content ">
             <div class="row d-flex">
-                <div class="col-3">
-                    <div class="card card_music">
-                        <img class="img-fluid px-1 py-1"
-                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Nhạc số 1</h5>
-                            <p class="card-text">Mô tả</p>
+                @if (Model != null)
+                {
+                    foreach (var baiHat in Model)
+                    {
+                        <div class="col-3">
+                            <div class="card card_music">
+                                <img class="img-fluid px-1 py-1"
+                                    src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title">@baiHat.tenbaihat</h5>
+                                    <p class="card-text">Mô tả</p>
+                                    <button class="btn btn-primary play-button w-100" 
+                                            data-song-url="@baiHat.file" 
+                                            data-song-title="@baiHat.tenbaihat">
+                                        <i class="fa-solid fa-play"></i> Phát nhạc
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card card_music">
-                        <img class="img-fluid px-1 py-1"
-                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Nhạc số 2</h5>
-                            <p class="card-text">Mô tả</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card card_music">
-                        <img class="img-fluid px-1 py-1"
-                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Nhạc số 3</h5>
-                            <p class="card-text">Mô tả</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card card_music">
-                        <img class="img-fluid px-1 py-1"
-                            src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">Nhạc số 4</h5>
-                            <p class="card-text">Mô tả</p>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
         </div>
     </div>
 </div>
-
-@{
-    if (!String.IsNullOrEmpty(user))
-    {
-        
-    }
-}
+<!-- Thanh phát nhạc cố định ở cuối trang -->
+<div class="music-player" id="musicPlayer">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <div class="song-info d-flex align-items-center">
+                    <img id="currentSongImage" src="https://th.bing.com/th/id/OIP.9RTAxkK_IjRInuyIWn0dWAAAAA?rs=1&pid=ImgDetMain" alt="" class="player-thumbnail me-2">
+                    <div>
+                        <h6 id="currentSongTitle" class="mb-0"></h6>
+                        <small id="currentSongArtist" class="text-muted"></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="player-controls text-center">
+                    <button class="btn btn-sm btn-light rounded-circle me-2" id="prevBtn">
+                        <i class="fa-solid fa-backward"></i>
+                    </button>
+                    <button class="btn btn-sm btn-light rounded-circle me-2" id="playPauseBtn">
+                        <i class="fa-solid fa-play" id="playPauseIcon"></i>
+                    </button>
+                    <button class="btn btn-sm btn-light rounded-circle me-2" id="nextBtn">
+                        <i class="fa-solid fa-forward"></i>
+                    </button>
+                    <div class="progress mt-2">
+                        <div id="songProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div class="time-info d-flex justify-content-between">
+                        <small id="currentTime">0:00</small>
+                        <small id="totalTime">0:00</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="volume-controls d-flex align-items-center justify-content-end">
+                    <i class="fa-solid fa-volume-high me-2"></i>
+                    <input type="range" class="form-range" id="volumeControl" min="0" max="1" step="0.01" value="1">
+                    <button class="btn btn-sm btn-light ms-3" id="closePlayerBtn">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio element (hidden) -->
+    <audio id="audioPlayer"></audio>
+</div>

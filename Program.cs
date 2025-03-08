@@ -8,6 +8,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
+builder.Services.AddScoped<IBaiHatRepository, BaiHatRepository>();
 
 // Thêm dịch vụ Session
 builder.Services.AddDistributedMemoryCache(); 
