@@ -1,0 +1,104 @@
+﻿@model BTL_NhapMonCNPM.Models.DangKyViewModel
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+<div class="container">
+    <div class="register-box">
+        <h2>Đăng Ký</h2>
+
+        <form asp-action="DangKy" method="post">
+            <div class="form-group">
+                <label asp-for="TenTaiKhoan"></label>
+                <input asp-for="TenTaiKhoan" class="input-field" placeholder="Nhập tên tài khoản" />
+                <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MatKhau"></label>
+                <input asp-for="MatKhau" type="password" class="input-field" placeholder="Nhập mật khẩu" />
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="XacNhanMatKhau"></label>
+                <input asp-for="XacNhanMatKhau" type="password" class="input-field" placeholder="Nhập lại mật khẩu" />
+                <span asp-validation-for="XacNhanMatKhau" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" type="email" class="input-field" placeholder="Nhập email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-submit">Đăng Ký</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    /* Căn giữa nội dung */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #f7f7f7;
+    }
+
+    .register-box {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 350px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: 0.3s;
+        font-size: 16px;
+    }
+
+        .input-field:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+    .btn-submit {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+

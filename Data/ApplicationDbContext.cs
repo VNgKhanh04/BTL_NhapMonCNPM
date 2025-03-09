@@ -9,5 +9,7 @@ namespace BTL_NhapMonCNPM.Data
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
+
+        public DbSet<TaiKhoanDangKy> TaiKhoans { get; set; }
     }
 }
