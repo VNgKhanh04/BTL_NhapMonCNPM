@@ -27,8 +27,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+body{
+  background-color: black;
+}
 
 .formLogin{
   border: 1px solid #ccc;
   box-shadow: 0 0 10px #ccc;
+}
+.gradient-banner {
+  height: 300px; 
+  background: linear-gradient(to bottom, #09586e, #08cec4); 
+  color: white;
+}
+#userDropdown::after {
+  display: none;
+}
+.dropdown-menu {
+  z-index: 1051;
 }

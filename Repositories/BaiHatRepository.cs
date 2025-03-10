@@ -10,9 +10,9 @@ public class BaiHatRepository : Repository<Baihat>, IBaiHatRepository
         _context = context;
     }
 
-    public async Task<Baihat> GetBaihatAsync(string msname)
+    public async Task<Baihat> GetBaihatAsync(int id)
     {
-        return await _context.BaiHats.FirstOrDefaultAsync(t => t.tenbaihat == msname);
+        return await _context.BaiHats.FirstOrDefaultAsync(t => t.Id == id);
     }
 
     public async Task<bool> AddNewBaiHat(Baihat baihat)

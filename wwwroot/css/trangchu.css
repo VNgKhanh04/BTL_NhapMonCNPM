@@ -11,14 +11,6 @@ body{
     background-color: #1c1c1c;
     color: white;
 }
-
-#userDropdown::after {
-    display: none;
-}
-.dropdown-menu {
-    z-index: 1051;
-}
-
 /* Thanh phát nhạc */
 .music-player {
     position: fixed;

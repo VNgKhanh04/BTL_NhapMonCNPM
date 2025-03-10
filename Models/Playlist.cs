@@ -7,6 +7,7 @@ public class Playlist
 
     [Required(ErrorMessage = "Tên play list không được để trống")]
     public string tenPlaylist { get; set; }
+    public int FK_nguoitao { get; set; }
 
     public bool Deleted { get; set; }
 }
