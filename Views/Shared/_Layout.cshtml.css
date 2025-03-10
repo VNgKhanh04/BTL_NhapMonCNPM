@@ -46,3 +46,75 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+/* CSS cho sidebar */
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #fff;
+}
+
+#sidebar {
+  width: 250px;
+  background-color: #1c1c1c;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #1c1c1c;
+  border-bottom: 1px solid #333;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+}
+
+#sidebar ul li a {
+  padding: 10px 20px;
+  display: block;
+  color: #b3b3b3;
+  text-decoration: none;
+}
+
+#sidebar ul li a:hover, #sidebar ul li a.active {
+  background: #333;
+  color: #fff;
+}
+
+.content-wrapper {
+  width: calc(100% - 250px);
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.sidebar-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: #1c1c1c;
+  border-top: 1px solid #333;
+}
+
+.sidebar-bottom a {
+  color: #b3b3b3;
+  text-decoration: none;
+}
+
+.sidebar-bottom a:hover {
+  color: #fff;
+}

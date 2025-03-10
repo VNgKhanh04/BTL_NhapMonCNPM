@@ -1,13 +1,24 @@
-using Microsoft.EntityFrameworkCore;
 using BTL_NhapMonCNPM.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BTL_NhapMonCNPM.Data
+public class ApplicationDbContext : DbContext
 {
-    public class ApplicationDbContext : DbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<User> Users { get; set; }
+    public DbSet<Taikhoan> TaiKhoans { get; set; }
+    public DbSet<Baihat> BaiHats { get; set; }
+    public DbSet<Playlist> Playlists { get; set; }
+    public DbSet<Binhluan> BinhLuans { get; set; }
+    public DbSet<Theloai> Theloais { get; set; }
+    public DbSet<Playlist_baihat> Playlist_Baihats { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Taikhoan>().ToTable("tbl_Taikhoan");
+        modelBuilder.Entity<Baihat>().ToTable("tbl_Baihat");
+        modelBuilder.Entity<Playlist>().ToTable("tbl_Playlist");
+        modelBuilder.Entity<Binhluan>().ToTable("tbl_Binhluan");
+        modelBuilder.Entity<Theloai>().ToTable("tbl_Theloai");
+        modelBuilder.Entity<Playlist_baihat>().ToTable("tbl_Playlist_baihat");
     }
 }
