@@ -158,3 +158,52 @@
     background-color: #1ED760;
     border-color: #1ED760;
 }
+/* Comments Section Styles */
+.comments-section {
+    background-color: rgba(18, 18, 18, 0.7);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.comment-item {
+    background-color: rgba(30, 30, 30, 0.6);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.comment-item:hover {
+    background-color: rgba(40, 40, 40, 0.6);
+}
+
+.comment-text p {
+    margin-bottom: 0;
+    word-wrap: break-word;
+}
+
+.new-comment {
+    animation: highlight 3s ease;
+}
+
+@keyframes highlight {
+    0% { background-color: rgba(29, 185, 84, 0.3); }
+    100% { background-color: rgba(30, 30, 30, 0.6); }
+}
+
+.comment-input textarea {
+    background-color: rgba(40, 40, 40, 0.8);
+    border-color: rgba(60, 60, 60, 0.8);
+    color: #fff;
+    resize: none;
+}
+
+.comment-input textarea:focus {
+    background-color: rgba(50, 50, 50, 0.8);
+    border-color: #1DB954;
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(29, 185, 84, 0.25);
+}
+
+.no-comments {
+    background-color: rgba(30, 30, 30, 0.6);
+    border-radius: 8px;
+}

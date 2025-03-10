@@ -119,13 +119,18 @@
                             
                             @if (!string.IsNullOrEmpty(user))
                             {
-                                <div class="comment-form mb-4">
-                                    <form id="commentForm">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Viết bình luận..." id="commentText">
-                                            <button class="btn btn-primary" type="submit">Gửi</button>
+                                <div class="comment-input d-flex">                                
+                                    <div class="flex-grow-1">
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="commentText" rows="2" 
+                                                    placeholder="Viết bình luận của bạn..." required></textarea>
                                         </div>
-                                    </form>
+                                        <div class="mt-2 text-end">
+                                            <button type="button" id="submitComment" class="btn btn-primary">
+                                                <i class="fa-solid fa-paper-plane me-1"></i> Gửi bình luận
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             }
                             else
@@ -136,28 +141,50 @@
                                 </div>
                             }
                             
-                            <div class="comments-list">
-                                <!-- Các bình luận sẽ được hiển thị ở đây -->
-                                <div class="no-comments text-center py-4">
-                                    <i class="fa-regular fa-comment-dots fa-2x mb-3"></i>
-                                    <p>Chưa có bình luận nào.</p>
+                            <!-- Danh sách bình luận -->
+                            <div class="comments-list" id="commentsList">
+                                @if (ViewBag.BinhLuan != null && ViewBag.BinhLuan.Count > 0)
+                                {
+                                    @foreach (var comment in ViewBag.BinhLuan)
+                                    {
+                                        <div class="comment-item p-3 mb-3" id="comment-@comment.Id">
+                                            <div class="d-flex">
+                                                <div class="flex-lg-grow-1 text-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h6 class="mb-0">User</h6>
+                                                        <small class="text-muted">@comment.thoigian.ToString("dd/MM/yyyy HH:mm")</small>
+                                                    </div>
+                                                    <div class="comment-text mt-2">
+                                                        <p>@comment.noidung</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-comments text-center py-4" id="noComments">
+                                        <i class="fa-regular fa-comments fa-3x mb-3 text-muted"></i>
+                                        <p class="text-muted">Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>
+                                    </div>
+                                }
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning">
+                                    <i class="fa-solid fa-triangle-exclamation me-2"></i> Không tìm thấy thông tin bài hát.
+                                </div>
+                                <div class="text-center mt-4">
+                                    <a href="/" class="btn btn-primary">Quay lại trang chủ</a>
+                                </div>
+                            }
                         </div>
-                    </div>
-                </div>
-            </div>
-    }
-    else
-    {
-        <div class="alert alert-warning">
-            <i class="fa-solid fa-triangle-exclamation me-2"></i> Không tìm thấy thông tin bài hát.
-        </div>
-        <div class="text-center mt-4">
-            <a href="/" class="btn btn-primary">Quay lại trang chủ</a>
-        </div>
-    }
-</div>
 
 <!-- Thanh phát nhạc cố định ở cuối trang -->
 <div class="music-player" id="musicPlayer">
@@ -209,3 +236,6 @@
     <!-- Audio element (hidden) -->
     <audio id="audioPlayer"></audio>
 </div>
+<script>
+    
+</script>

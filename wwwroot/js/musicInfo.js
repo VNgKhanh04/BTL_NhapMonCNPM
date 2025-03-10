@@ -130,4 +130,91 @@ $(document).ready(function () {
         playPauseIcon.classList.remove('fa-pause');
         playPauseIcon.classList.add('fa-play');
     });
+
+    
+});
+
+$(document).ready(function() {
+    function getParameterByName(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    
+    const musicId = getParameterByName('id');
+    
+    $("#submitComment").click(function() {
+        sendComment();
+    });
+    
+    $("#commentText").keypress(function(e) {
+        if (e.which === 13 && !e.shiftKey) {
+            e.preventDefault();
+            sendComment();
+        }
+    });
+    
+    function sendComment() {
+        const commentText = $("#commentText").val().trim();
+        
+        if (!commentText) {
+            alert("Vui lòng nhập nội dung bình luận!");
+            return;
+        }
+        
+        $.ajax({
+            url: "/addComment",
+            method: "POST",
+            data: {
+                baiHatId: musicId,
+                commentText: commentText
+            },
+            success: function(response) {
+                if (response.success) {
+                    $("#commentText").val("");
+                    
+                    $("#noComments").hide();
+                    
+                    const newComment = `
+                        <div class="comment-item p-3 mb-3 new-comment" id="comment-${response.newComment.id}">
+                            <div class="d-flex">
+                                <div class="flex-grow-1 text-light">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">User</h6>
+                                        <small class="text-muted">${response.newComment.time}</small>
+                                    </div>
+                                    <div class="comment-text mt-2">
+                                        <p>${response.newComment.content}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    $("#commentsList").prepend(newComment);
+                    
+                    setTimeout(() => {
+                        $(".new-comment").removeClass('new-comment');
+                    }, 3000);
+                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Bình luận của bạn đã được gửi thành công.'
+                    });
+                } else {
+                    Toast.fire({
+                        icon: 'info',
+                        title: response.message
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Có lỗi xảy ra khi gửi bình luận. Vui lòng thử lại sau.'
+                })
+                console.error(error);
+            }
+        });
+    }
 });

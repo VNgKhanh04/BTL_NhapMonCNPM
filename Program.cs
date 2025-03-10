@@ -10,6 +10,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddScoped<IBaiHatRepository, BaiHatRepository>();
 builder.Services.AddScoped<IPlaylistRepository, PlaylistRepository>();
+builder.Services.AddScoped<IBinhLuanRepository, BinhLuanRepository>();
 
 // Thêm dịch vụ Session
 builder.Services.AddDistributedMemoryCache(); 
@@ -24,8 +25,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<CheckBL>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache(); 
