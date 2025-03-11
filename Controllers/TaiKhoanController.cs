@@ -17,9 +17,9 @@ namespace MusicApp.Controllers
         }
 
         [HttpGet("dang-ky")]
-        public IActionResult DangKy()
+        public IActionResult Index()
         {
-            return View("~/Views/TaiKhoan/DangKy.cshtml");
+            return View();
 
         }
 
