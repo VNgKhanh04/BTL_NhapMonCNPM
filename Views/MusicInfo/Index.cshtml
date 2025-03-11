@@ -140,9 +140,7 @@
                                     Vui lòng <a href="" data-bs-toggle="modal" data-bs-target="#modalSignin">đăng nhập</a> để bình luận.
                                 </div>
                             }
-                            @{
-                                var userName = HttpContext.Session.GetString("UserName");
-                            }
+                            
                             
                             <!-- Danh sách bình luận -->
                             <div class="comments-list" id="commentsList">
@@ -154,7 +152,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-lg-grow-1 text-light">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <h6 class="mb-0">@username</h6>
+                                                        <h6 class="mb-0">User</h6>
                                                         <small class="text-muted">@comment.thoigian.ToString("dd/MM/yyyy HH:mm")</small>
                                                     </div>
                                                     <div class="comment-text mt-2">

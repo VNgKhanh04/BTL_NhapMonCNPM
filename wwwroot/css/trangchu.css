@@ -107,3 +107,129 @@ body{
 #songProgress{
     background-color: #1DB954;
 }
+
+/* Tìm kiếm */
+.search_bar {
+    width: 300px;
+    transition: width 0.3s ease;
+}
+
+.search_bar:focus-within {
+    width: 350px;
+}
+
+.search_bar .form-control {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding-right: 40px;
+    transition: all 0.3s ease;
+}
+
+.search_bar .form-control:focus {
+    background-color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+.search-icon {
+    right: 15px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.search-icon:hover {
+    color: #007bff;
+}
+
+/* Kết quả tìm kiếm */
+.search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    margin-top: 5px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+}
+
+.search-results-container {
+    padding: 10px;
+}
+
+.search-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    color: #555;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    color: #212529;
+}
+
+.search-result-item:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.search-result-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.search-result-info {
+    flex-grow: 1;
+}
+
+.search-result-title {
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #212529;
+}
+
+.search-result-subtitle {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.search-result-play {
+    margin-left: auto;
+}
+
+.search-view-all {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.view-all-results {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.search-no-results {
+    padding: 20px 10px;
+    color: #6c757d;
+    text-align: center;
+}
+
+.search-no-results i {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 10px;
+}

@@ -21,6 +21,37 @@
                         <i class="fa-solid fa-arrow-right text-light"></i>
                     </button>
                 </div>
+                <div class="search_bar position-relative">
+                    <input type="text" class="form-control rounded-pill ps-4 pe-5" id="searchInput"
+                        placeholder="Tìm kiếm bài hát...">
+                    <span class="search-icon position-absolute top-50 translate-middle-y" id="searchIcon">
+                        <i class="fa-solid fa-search"></i>
+                    </span>
+                    <!-- Dropdown kết quả tìm kiếm -->
+                    <div class="search-results-dropdown" id="searchResults">
+                        <div class="search-results-container">
+                            <!-- Kết quả tìm kiếm -->
+                            <div class="search-loading d-none">
+                                <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                    <span class="visually-hidden">Đang tìm kiếm...</span>
+                                </div>
+                                <span class="ms-2">Đang tìm kiếm...</span>
+                            </div>
+                            <div class="search-results-list"></div>
+                            <div class="search-no-results d-none">
+                                <div class="text-center py-3">
+                                    <i class="fa-solid fa-search text-muted mb-2"></i>
+                                    <p class="mb-0">Không tìm thấy kết quả nào</p>
+                                </div>
+                            </div>
+                            <div class="search-view-all d-none">
+                                <a href="#" class="view-all-results">
+                                    Xem tất cả kết quả <i class="fa-solid fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @{
                     if (!String.IsNullOrEmpty(user))
                     {
@@ -94,19 +125,20 @@
 </div>
 @if (!String.IsNullOrEmpty(user) && ViewBag.PlayList != null && ViewBag.PlayList.Count > 0)
 {
-<div class="playlist mt-5">
-    <div class="">
-        <div class="playlist_title d-flex align-items-center mb-2">
-            <h2 class="fw-bold text-light">PlayList</h2>
-            <div class="button_addP ms-4">
-                <button class="btn btn-success rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#modalCreatePlaylist">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+    <div class="playlist mt-5">
+        <div class="">
+            <div class="playlist_title d-flex align-items-center mb-2">
+                <h2 class="fw-bold text-light">PlayList</h2>
+                <div class="button_addP ms-4">
+                    <button class="btn btn-success rounded-pill fw-bold" data-bs-toggle="modal"
+                        data-bs-target="#modalCreatePlaylist">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="playlist_content ">
-            <div class="row d-flex">
-                
+            <div class="playlist_content ">
+                <div class="row d-flex">
+
                     @foreach (var playlist in ViewBag.PlayList)
                     {
                         <div class="col-3 mb-4">
@@ -117,17 +149,17 @@
                                 <div class="card-body">
                                     <h5 class="card-title">@playlist.tenPlaylist</h5>
                                     <p class="card-text">Mô tả</p>
-                                    <button class="btn btn-primary play-button w-100" >
+                                    <button class="btn btn-primary play-button w-100">
                                         <i class="fa-solid fa-play"></i> Phát nhạc
                                     </button>
                                 </div>
                             </div>
                         </div>
                     }
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 else if (!String.IsNullOrEmpty(user))
 {

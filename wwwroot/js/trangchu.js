@@ -130,4 +130,106 @@ $(document).ready(function () {
         playPauseIcon.classList.remove('fa-pause');
         playPauseIcon.classList.add('fa-play');
     });
+
+
+    // Tìm kiếm bài hát
+    const searchInput = $("#searchInput");
+    const searchResults = $("#searchResults");
+    const searchResultsList = $(".search-results-list");
+    const searchLoading = $(".search-loading");
+    const searchNoResults = $(".search-no-results");
+    const searchViewAll = $(".search-view-all");
+    
+    let searchTimeout;
+    let currentSearchTerm = '';
+    
+    searchInput.on("input", function() {
+        const searchTerm = $(this).val().trim();
+        currentSearchTerm = searchTerm;
+        clearTimeout(searchTimeout);
+        
+        if (searchTerm === '') {
+            searchResults.hide();
+            return;
+        }
+
+        searchTimeout = setTimeout(function() {
+            searchResults.show();
+            searchResultsList.empty();
+            searchLoading.removeClass('d-none');
+            searchNoResults.addClass('d-none');
+            searchViewAll.addClass('d-none');
+            
+            $.ajax({
+                url: 'search',
+                type: 'GET',
+                data: { q: searchTerm, limit: 5 },
+                success: function(response) {
+                    if (searchTerm !== currentSearchTerm) return;
+                    
+                    searchLoading.addClass('d-none');
+                    
+                    if (response.results && response.results.length > 0) {
+                        searchResultsList.empty();
+                        response.results.forEach(function(item) {
+                            const resultItem = `
+                                <a href="/MusicInfo?id=${item.id}" class="search-result-item">
+                                    <img src="${item.imageUrl || 'https://via.placeholder.com/50'}" alt="${item.title}" class="search-result-image">
+                                    <div class="search-result-info">
+                                        <div class="search-result-title">${item.title}</div>
+                                        <div class="search-result-subtitle">${item.artist || 'Unknown artist'}</div>
+                                    </div>
+                                    <div class="search-result-play">
+                                        <button class="btn btn-sm btn-outline-primary rounded-circle play-search-result" 
+                                            data-song-url="${item.fileUrl}" 
+                                            data-song-title="${item.title}"
+                                            data-song-artist="${item.artist || 'Unknown artist'}">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                    </div>
+                                </a>
+                            `;
+                            searchResultsList.append(resultItem);
+                        });
+                        if (response.totalCount > response.results.length) {
+                            searchViewAll.removeClass('d-none');
+                            $('.view-all-results').attr('href', `/Home/SearchResults?q=${encodeURIComponent(searchTerm)}`);
+                        }
+                    } else {
+                        searchNoResults.removeClass('d-none');
+                    }
+                },
+                error: function() {
+                    searchLoading.addClass('d-none');
+                    searchResultsList.html('<div class="text-danger p-3">Có lỗi xảy ra khi tìm kiếm</div>');
+                }
+            });
+        }, 300);
+    });
+    
+    
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.search_bar').length) {
+            searchResults.hide();
+        }
+    });
+    
+    searchInput.focus(function() {
+        if ($(this).val().trim() !== '') {
+            searchResults.show();
+        }
+    });
+    
+    $(document).on('click', '.play-search-result', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const songUrl = $(this).data('song-url');
+        const songTitle = $(this).data('song-title');
+        const songArtist = $(this).data('song-artist');
+        
+        playSong(songUrl, songTitle, songArtist);
+        $(musicPlayer).addClass('show');
+    });
 });
+
