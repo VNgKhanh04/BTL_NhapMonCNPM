@@ -136,7 +136,7 @@
                         <div class="modal-body">
                             <form action="register" class="my-5" method="post" id="registerForm">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="username" name="username"
+                                    <input type="text" class="form-control" id="regis_username" name="username"
                                         placeholder="Nhập tên Tài khoản">
                                     <label for="username">Tài khoản</label>
                                 </div>
@@ -262,4 +262,5 @@
         title: '@TempData["Message"]'
     })
 </script>
+TempData.Clear();
 }

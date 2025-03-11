@@ -36,6 +36,13 @@ public class UploadController : Controller
                 TempData["Message"] = "Vui lòng đăng nhập để tải file lên!";
                 return RedirectToAction("Index", "Home");
             }
+
+            if(string.IsNullOrEmpty(ms_name) || string.IsNullOrEmpty(ms_theloai))
+            {
+                TempData["icon"] = "error";
+                TempData["Message"] = "Vui lòng nhập đầy đủ thông tin!";
+                return RedirectToAction("Index", "Home");
+            }
             
             if (ms_file == null || ms_file.Length == 0)
             {

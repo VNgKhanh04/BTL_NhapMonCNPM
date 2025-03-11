@@ -29,7 +29,7 @@ public class AuthController : Controller
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 TempData["icon"] = "error";
-                TempData["Message"] = "Vui lòng nhập tên đăng nhập và mật khẩu";
+                TempData["Message"] = "Vui lòng nhập đầy đủ thông tin!";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -60,6 +60,13 @@ public class AuthController : Controller
     [Route("register")]
     public IActionResult RegisterPost(string username, string password_regis, string email)
     {
+        if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password_regis) || string.IsNullOrEmpty(email))
+        {
+            TempData["icon"] = "error";
+            TempData["Message"] = "Vui lòng nhập đầy đủ thông tin!";
+            return RedirectToAction("Index", "Home");
+        }
+
         if(_taiKhoanRepository.GetByUsernameAsync(username).Result != null)
         {
             TempData["icon"] = "error";

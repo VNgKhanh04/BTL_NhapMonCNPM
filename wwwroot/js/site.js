@@ -2,13 +2,6 @@
 
 $(document).ready(function () {
     $('#registerForm').submit(function (e) {
-        if($('#password_regis').val() != $('#r_password').val()){
-            Toast.fire({
-                icon: 'error',
-                title: 'Mật khẩu không khớp'
-            })
-            e.preventDefault();
-        }
 
         const email = $('#email').val();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,6 +11,20 @@ $(document).ready(function () {
                 title: 'Email không hợp lệ'
             })
             e.preventDefault();
+            return;
+        }
+
+        if($('#password_regis').val() != $('#r_password').val()){
+            Toast.fire({
+                icon: 'error',
+                title: 'Mật khẩu không khớp'
+            })
+            e.preventDefault();
+            return;
         }
     });
+
+    $('#loginForm').submit(function (e) {
+        
+    });    
 });

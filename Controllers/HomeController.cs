@@ -50,6 +50,13 @@ public class HomeController : Controller
             TempData["Message"] = "Vui lòng đăng nhập để tạo playlist!";
             return RedirectToAction("Index", "Home");
         }
+        if(string.IsNullOrEmpty(pl_name))
+        {
+            TempData["icon"] = "error";
+            TempData["Message"] = "Vui lòng nhập tên playlist!";
+            return RedirectToAction("Index", "Home");
+        }
+        
         try
         {
             var Playlist = new Playlist
