@@ -11,4 +11,7 @@ public class Binhluan
     public DateTime thoigian { get; set; }
     public int FK_parent { get; set; }
     public bool Deleted { get; set; }
+
+    public string Username { get; set; }
+
 }
