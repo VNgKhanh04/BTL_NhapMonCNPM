@@ -1,6 +1,8 @@
 # Build results
 /bin/
 /obj/
+/BTL_NhapMonCNPM.Tests/bin/
+/BTL_NhapMonCNPM.Tests/obj/
 /[Dd]ebug/
 /[Rr]elease/
 /[Bb]uild/
