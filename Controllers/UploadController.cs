@@ -51,6 +51,13 @@ public class UploadController : Controller
                 return RedirectToAction("Index", "Home");
             }
 
+            if(Path.GetExtension(ms_file.FileName) != ".mp3")
+            {
+                TempData["icon"] = "error";
+                TempData["Message"] = "Vui lòng tải file nhạc dạng mp3";
+                return RedirectToAction("Index", "Home");
+            }
+
             // Tạo thư mục uploads nếu chưa tồn tại
             string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             if (!Directory.Exists(uploadsFolder))

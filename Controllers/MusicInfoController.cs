@@ -22,6 +22,12 @@ public class MusicInfoController : Controller
     public IActionResult Index(int id)
     {
         var baihat = _baiHatRepository.GetBaihatAsync(id).Result;
+        if(baihat == null)
+        {
+            TempData["icon"] = "error";
+            TempData["Message"] = "Bài hát đã xóa hoặc không tồn tại!";
+            return RedirectToAction("Index", "Home");
+        }
         var listBl = _binhLuanRepository.GetBinhLuanByBaiHatAsync(id).Result;
         ViewBag.BinhLuan = listBl;
         return View(baihat);
