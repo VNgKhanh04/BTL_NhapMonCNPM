@@ -63,7 +63,8 @@ public class MusicInfoController : Controller
                 FK_parent = baiHatId,
                 FK_nguoiviet = userId.Value,
                 noidung = commentText,
-                thoigian = DateTime.Now
+                thoigian = DateTime.Now,
+                Username = userName
             };
 
             bool result = await _binhLuanRepository.AddNewBinhLuan(binhluan);
