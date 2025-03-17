@@ -1,0 +1,57 @@
+@model Playlist
+
+<h2 class="text-center text-warning">📀 Playlist: @Model.TenPlaylist</h2>
+
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<h4 class="mt-4">Danh sách bài hát:</h4>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên Bài Hát</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ps in Model.PlaylistSongs.Where(ps => !ps.Deleted))
+        {
+            <tr>
+                <td>@ps.Song.Id</td>
+                <td>@ps.Song.TenBaihat</td>
+                <td>
+                    <form asp-action="RemoveSong" method="post" style="display:inline;">
+                        <input type="hidden" name="playlistSongId" value="@ps.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">❌ Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4 class="mt-4">Thêm bài hát vào Playlist:</h4>
+
+<form asp-action="AddSong" method="post" class="shadow p-3 bg-light rounded">
+    <input type="hidden" name="playlistId" value="@Model.Id" />
+    <div class="mb-3">
+        <label class="form-label">Chọn bài hát:</label>
+        <select name="songId" class="form-control">
+            @foreach (var song in ViewBag.AvailableSongs)
+            {
+                <option value="@song.Id">@song.TenBaihat</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">➕ Thêm Bài Hát</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">⬅️ Quay lại</a>

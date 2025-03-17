@@ -1,0 +1,12 @@
+@model Playlist
+
+<h2 class="text-center text-success">🎼 Tạo Playlist Mới</h2>
+
+<form asp-action="Create" method="post" class="shadow p-4 bg-light rounded">
+    <div class="mb-3">
+        <label class="form-label">Tên Playlist:</label>
+        <input type="text" name="tenPlaylist" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

@@ -1,0 +1,28 @@
+@model IEnumerable<Playlist>
+
+<h2>Danh sách Playlist</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên Playlist</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var playlist in Model)
+        {
+            <tr>
+                <td>@playlist.TenPlaylist</td>
+                <td>
+                    <a href="@Url.Action("Details", "Playlists", new { id = playlist.Id })" class="btn btn-info">Xem</a>
+                    <form asp-action="Delete" asp-route-id="@playlist.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa playlist này?');">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Playlists")" class="btn btn-primary">Tạo Playlist</a>
